@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Operações Matemáticas com Funções</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f4f9;
+      color: #333;
+      text-align: center;
+      margin: 40px;
+    }
+
+    h1 {
+      color: #0066cc;
+    }
+
+    input {
+      width: 80px;
+      padding: 5px;
+      margin: 5px;
+      text-align: center;
+    }
+
+    button {
+      background: #0066cc;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      padding: 8px 14px;
+      margin: 5px;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+
+    button:hover {
+      background: #004999;
+    }
+
+    #resultado {
+      margin-top: 20px;
+      font-weight: bold;
+      color: #222;
+    }
+
+    hr {
+      margin: 30px 0;
+    }
+  </style>
+</head>
+<body>
+  <h1>Operações Matemáticas com Funções</h1>
+
+  <div>
+    <input type="number" id="num1" placeholder="Número 1">
+    <input type="number" id="num2" placeholder="Número 2">
+  </div>
+
+  <div>
+    <button onclick="mostrarResultado(executarOperacao, soma)">Soma</button>
+    <button onclick="mostrarResultado(executarOperacao, subtracao)">Subtração</button>
+    <button onclick="mostrarResultado(executarOperacao, multiplicacao)">Multiplicação</button>
+    <button onclick="mostrarResultado(executarOperacao, divisao)">Divisão</button>
+  </div>
+
+  <hr>
+
+  <div>
+    <h2>Manipulação de Arrays</h2>
+    <input type="text" id="arrayInput" placeholder="Ex: 1,2,3,4,5,6">
+    <button onclick="filtrarArray()">Filtrar Pares</button>
+    <button onclick="mostrarMedia()">Calcular Média</button>
+  </div>
+
+  <div id="resultado"></div>
+
+  <script>
+    // ------------------------
+    // Funções nomeadas
+    // ------------------------
+    function soma(a, b) {
+      return a + b;
+    }
+
+    function subtracao(a, b) {
+      return a - b;
+    }
+
+    function multiplicacao(a, b) {
+      return a * b;
+    }
+
+    function divisao(a, b) {
+      if (b === 0) return "Erro: divisão por zero!";
+      return a / b;
+    }
+
+    // ------------------------
+    // Funções Arrow
+    // ------------------------
+    const filtrarPares = (array) => array.filter(num => num % 2 === 0);
+    const calcularMedia = (array) => array.reduce((t, n) => t + n, 0) / array.length;
+
+    // ------------------------
+    // Função com callback
+    // ------------------------
+    function executarOperacao(a, b, operacao) {
+      return operacao(a, b);
+    }
+
+    // ------------------------
+    // Exibir resultado
+    // ------------------------
+    function mostrarResultado(callback, operacao) {
+      const n1 = Number(document.getElementById("num1").value);
+      const n2 = Number(document.getElementById("num2").value);
+      const resultado = callback(n1, n2, operacao);
+      document.getElementById("resultado").innerText = `Resultado: ${resultado}`;
+    }
+
+    // ------------------------
+    // Manipulação de Arrays
+    // ------------------------
+    function obterArray() {
+      const texto = document.getElementById("arrayInput").value;
+      return texto.split(",").map(n => Number(n.trim()));
+    }
+
+    function filtrarArray() {
+      const array = obterArray();
+      const pares = filtrarPares(array);
+      document.getElementById("resultado").innerText = `Números pares: [${pares.join(", ")}]`;
+    }
+
+    function mostrarMedia() {
+      const array = obterArray();
+      const media = calcularMedia(array);
+      document.getElementById("resultado").innerText = `Média: ${media.toFixed(2)}`;
+    }
+  </script>
+</body>
+</html>
